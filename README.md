@@ -1,0 +1,2 @@
+# DiningTipper
+Enchanced Tip Calculator
