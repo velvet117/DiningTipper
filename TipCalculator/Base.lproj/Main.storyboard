@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Tip Calculator-->
+        <!--Dining Tipper-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -95,7 +95,7 @@
                             <outletCollection property="gestureRecognizers" destination="rPx-Xx-W9h" appends="YES" id="yCb-1N-9L9"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Tip Calculator" id="KUR-wd-VN7">
+                    <navigationItem key="navigationItem" title="Dining Tipper" id="KUR-wd-VN7">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="KXA-xl-fvO">
                             <connections>
                                 <segue destination="W1I-Ld-KVU" kind="push" id="GFx-qD-k9t"/>
