@@ -29,7 +29,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+The challenges that I've faced:
+
+* The formatting took way more time than building the functionality of the app.
+* Need a better structure of the code on Appearance/Styling that shouldn't be repeated in both View Controllers
+* Submission process
 
 ## License
 
