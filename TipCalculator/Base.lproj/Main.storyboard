@@ -28,16 +28,15 @@
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
                                     <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="editingChanged" id="aFU-pw-ynB"/>
-                                    <action selector="showResults:" destination="BYZ-38-t0r" eventType="valueChanged" id="3gb-ne-BsX"/>
                                 </connections>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="YKH-sx-iiC">
                                 <rect key="frame" x="20" y="181" width="280" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Average"/>
-                                    <segment title="Good"/>
-                                    <segment title="Excellent"/>
+                                    <segment title="" image="emojiNeutral"/>
+                                    <segment title="" image="emojiHappy"/>
+                                    <segment title="" image="emojiVeryHappy"/>
                                 </segments>
                                 <connections>
                                     <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="valueChanged" id="wqi-kg-rNl"/>
@@ -91,13 +90,11 @@
                             </view>
                         </subviews>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="rPx-Xx-W9h" appends="YES" id="yCb-1N-9L9"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Dining Tipper" id="KUR-wd-VN7">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="KXA-xl-fvO">
+                        <barButtonItem key="rightBarButtonItem" image="iconSettings" id="KXA-xl-fvO">
                             <connections>
+                                <action selector="calculateTip:" destination="BYZ-38-t0r" id="upp-XI-it0"/>
                                 <segue destination="W1I-Ld-KVU" kind="push" id="GFx-qD-k9t"/>
                             </connections>
                         </barButtonItem>
@@ -113,11 +110,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="rPx-Xx-W9h">
-                    <connections>
-                        <action selector="onTap:" destination="BYZ-38-t0r" id="pzC-gF-J9k"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="694" y="339"/>
         </scene>
@@ -180,4 +172,10 @@
             <point key="canvasLocation" x="162" y="339"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="emojiHappy" width="24" height="24"/>
+        <image name="emojiNeutral" width="24" height="24"/>
+        <image name="emojiVeryHappy" width="24" height="24"/>
+        <image name="iconSettings" width="24" height="24"/>
+    </resources>
 </document>

@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     
     let tipPercentages = [0.15, 0.18, 0.2]
     let defaults = NSUserDefaults.standardUserDefaults()
+    var billAmount:Double = 0
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,7 +34,15 @@ class ViewController: UIViewController {
         let defaultTip = defaults.integerForKey("defaultTip")
         tipControl.selectedSegmentIndex = defaultTip
         
-        resultsView.alpha = 0
+        billAmount = Double(billField.text!) ?? 0
+        defaults.setDouble(billAmount, forKey: "billAmount")
+        defaults.synchronize()
+        
+        if billField.text == "" {
+            resultsView.alpha = 0
+        }
+        
+        self.calculateTip(tipControl)
     }
     
     override func viewDidLoad() {
@@ -53,21 +62,13 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        billField.text = ""
-    }
-
-    @IBAction func onTap(sender: AnyObject) {
-        view.endEditing(true)
-    }
-
     @IBAction func calculateTip(sender: AnyObject) {
         
-        UIView.animateWithDuration(0.4, animations: {
-            self.resultsView.alpha = 1
-        })
+        if billField.text != "" {
+            UIView.animateWithDuration(0.4, animations: {
+                self.resultsView.alpha = 1
+            })
+        }
         
         let bill = Double(billField.text!) ?? 0
         
