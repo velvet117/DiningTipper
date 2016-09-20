@@ -25,20 +25,20 @@ class ViewController: UIViewController {
     let fontColor = UIColor(red: 106/255, green: 116/255, blue: 130/255, alpha: 1)
     
     let tipPercentages = [0.15, 0.18, 0.2]
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     var billAmount:Double = 0
+    var formatter = NumberFormatter()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let defaultTip = defaults.integerForKey("defaultTip")
+        let defaultTip = defaults.integer(forKey: "defaultTip")
         tipControl.selectedSegmentIndex = defaultTip
         
+        billField.placeholder = "$"
         billAmount = Double(billField.text!) ?? 0
-        defaults.setDouble(billAmount, forKey: "billAmount")
-        defaults.synchronize()
         
-        if billField.text == "" {
+        if billAmount == 0 {
             resultsView.alpha = 0
         }
         
@@ -50,6 +50,8 @@ class ViewController: UIViewController {
         
         tipCalculatorView.backgroundColor = self.backgroundColor
         tipCalculatorView.tintColor = self.tintColor
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isOpaque = true
         
         totalLabel.textColor = self.fontColor
         tipLabel.textColor = self.fontColor
@@ -60,23 +62,35 @@ class ViewController: UIViewController {
         billField.textColor = self.fontColor
         billField.tintColor = self.tintColor
         
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.locale = NSLocale.current
+        formatter.maximumFractionDigits = 2
+        
     }
     
-    @IBAction func calculateTip(sender: AnyObject) {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        defaults.set(billAmount, forKey: "billAmount")
+        defaults.synchronize()
+    }
+    
+    @IBAction func calculateTip(_ sender: AnyObject) {
         
         if billField.text != "" {
-            UIView.animateWithDuration(0.4, animations: {
+            UIView.animate(withDuration: 0.4, animations: {
                 self.resultsView.alpha = 1
             })
         }
         
-        let bill = Double(billField.text!) ?? 0
+        billAmount = Double(billField.text!) ?? 0
         
-        let tip = bill * self.tipPercentages[tipControl.selectedSegmentIndex]
-        let total = bill + tip
+        let tip = billAmount * self.tipPercentages[tipControl.selectedSegmentIndex]
+        let total = billAmount + tip
 
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f",total)
+        tipLabel.text = formatter.string(from: NSNumber(value: Double(tip)))
+        totalLabel.text = formatter.string(from: NSNumber(value: Double(total)))
     }
 }
 

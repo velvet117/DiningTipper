@@ -13,7 +13,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var SettingsView: UIView!
     
     var defaultTipValue:Int = 0
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     
     let backgroundColor = UIColor(red: 23/255, green: 31/255, blue: 50/255, alpha: 1)
     
@@ -21,17 +21,17 @@ class SettingsViewController: UIViewController {
     
     let fontColor = UIColor(red: 106/255, green: 116/255, blue: 130/255, alpha: 1)
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        defaultTipTabBar.selectedSegmentIndex = defaults.integerForKey("defaultTip")
+        defaultTipTabBar.selectedSegmentIndex = defaults.integer(forKey: "defaultTip")
         SettingsView.backgroundColor = self.backgroundColor
         SettingsView.tintColor = self.tintColor
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         defaultTipValue = defaultTipTabBar.selectedSegmentIndex
-        defaults.setInteger(defaultTipValue, forKey: "defaultTip")
+        defaults.set(defaultTipValue, forKey: "defaultTip")
         defaults.synchronize()
     }
 }
