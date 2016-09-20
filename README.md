@@ -16,14 +16,14 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 * [x] UI animations
 * [x] Remembering the bill amount across app restarts (if <10mins)
-* [ ] Using locale-specific currency and currency thousands separators.
+* [x] Using locale-specific currency and currency thousands separators.
 * [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/OJy1M1O.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/tgryWhH.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -34,6 +34,7 @@ The challenges that I've faced:
 * The formatting took way more time than building the functionality of the app.
 * Need a better structure of the code on Appearance/Styling that shouldn't be repeated in both View Controllers
 * Submission process
+* XCode 8 update and Swift 3 modifications
 
 ## License
 
