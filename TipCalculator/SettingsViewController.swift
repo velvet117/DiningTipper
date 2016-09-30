@@ -16,9 +16,7 @@ class SettingsViewController: UIViewController {
     let defaults = UserDefaults.standard
     
     let backgroundColor = UIColor(red: 23/255, green: 31/255, blue: 50/255, alpha: 1)
-    
     let tintColor = UIColor(red: 208/255, green: 208/255, blue: 208/255, alpha: 1)
-    
     let fontColor = UIColor(red: 106/255, green: 116/255, blue: 130/255, alpha: 1)
     
     override func viewWillAppear(_ animated: Bool) {

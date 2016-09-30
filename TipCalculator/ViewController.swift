@@ -19,18 +19,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultsView: UIView!
     
     let backgroundColor = UIColor(red: 23/255, green: 31/255, blue: 50/255, alpha: 1)
-    
     let tintColor = UIColor(red: 208/255, green: 208/255, blue: 208/255, alpha: 1)
-    
     let fontColor = UIColor(red: 106/255, green: 116/255, blue: 130/255, alpha: 1)
     
     let tipPercentages = [0.15, 0.18, 0.2]
-    let defaults = UserDefaults.standard
     var billAmount:Double = 0
+    let timeIntervalSec:Double = 600
+    let defaults = UserDefaults.standard
     var formatter = NumberFormatter()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let lastTime = defaults.double(forKey: "futureTime")
+        let currentTime = NSDate().timeIntervalSince1970
+        
+        if ((currentTime - lastTime) <= timeIntervalSec) {
+            let lastBillAmount = defaults.float(forKey: "billAmount")
+            billAmount = Double(lastBillAmount)
+            billField.text = String(billAmount)
+        }
         
         let defaultTip = defaults.integer(forKey: "defaultTip")
         tipControl.selectedSegmentIndex = defaultTip
@@ -47,7 +55,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.stylingView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        let futureTime = NSDate().timeIntervalSince1970
+        defaults.set(futureTime, forKey: "futureTime")
+        
+        defaults.set(billAmount, forKey: "billAmount")
+        defaults.synchronize()
+    }
+    
+    private func stylingView() {
         tipCalculatorView.backgroundColor = self.backgroundColor
         tipCalculatorView.tintColor = self.tintColor
         self.navigationController?.navigationBar.isTranslucent = false
@@ -66,14 +87,6 @@ class ViewController: UIViewController {
         formatter.numberStyle = .currency
         formatter.locale = NSLocale.current
         formatter.maximumFractionDigits = 2
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        defaults.set(billAmount, forKey: "billAmount")
-        defaults.synchronize()
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
