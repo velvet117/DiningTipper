@@ -30,7 +30,29 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.formattingLocalCurrency()
+        self.initBillAmount()
+        self.storeBillAmount()
+        self.handleDefaultTip()
+    }
+    
+    private func formattingLocalCurrency() {
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.locale = NSLocale.current
+        formatter.maximumFractionDigits = 2
+    }
+    
+    private func initBillAmount() {
+        billField.placeholder = "$"
+        billAmount = Double(billField.text!) ?? 0
         
+        if billAmount == 0 {
+            resultsView.alpha = 0
+        }
+    }
+    
+    private func storeBillAmount() {
         let lastTime = defaults.double(forKey: "futureTime")
         let currentTime = NSDate().timeIntervalSince1970
         
@@ -39,17 +61,11 @@ class ViewController: UIViewController {
             billAmount = Double(lastBillAmount)
             billField.text = String(billAmount)
         }
-        
+    }
+    
+    private func handleDefaultTip() {
         let defaultTip = defaults.integer(forKey: "defaultTip")
         tipControl.selectedSegmentIndex = defaultTip
-        
-        billField.placeholder = "$"
-        billAmount = Double(billField.text!) ?? 0
-        
-        if billAmount == 0 {
-            resultsView.alpha = 0
-        }
-        
         self.calculateTip(tipControl)
     }
     
@@ -82,11 +98,6 @@ class ViewController: UIViewController {
         billField.becomeFirstResponder()
         billField.textColor = self.fontColor
         billField.tintColor = self.tintColor
-        
-        formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
-        formatter.locale = NSLocale.current
-        formatter.maximumFractionDigits = 2
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
